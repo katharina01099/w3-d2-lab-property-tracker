@@ -69,6 +69,27 @@ class PropertyTrack
       db.close()
     end
 
+    def PropertyTrack.delete_all()
+      db = PG. connect({dbname: 'property_tracker', host: 'localhost'})
+      sql = "DELETE FROM property_trackers
+      "
+      db.prepare("delete_all", sql)
+      db.exec_prepared("delete_all")
+      db.close()
+    end
+
+    def PropertyTrack.find(id)
+      db = PG. connect({dbname: 'property_tracker', host: 'localhost'})
+      sql = "SELECT * FROM property_trackers
+      WHERE id = $1
+      "
+      values = [id]
+      db.prepare("find", sql)
+      properties = db.exec_prepared("find", values)
+      db.close()
+      return properties.map {|property| PropertyTrack.new(property)}
+
+    end
 
 
 
