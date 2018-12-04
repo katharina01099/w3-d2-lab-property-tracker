@@ -38,3 +38,6 @@ property2.save
 
 fondPr = PropertyTrack.find(30)
 p fondPr
+
+fondPr2 = PropertyTrack.find_adress('Castle Walk 3')
+p fondPr2

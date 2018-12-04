@@ -88,6 +88,18 @@ class PropertyTrack
       properties = db.exec_prepared("find", values)
       db.close()
       return properties.map {|property| PropertyTrack.new(property)}
+    end
+
+      def PropertyTrack.find_adress(adress)
+        db = PG. connect({dbname: 'property_tracker', host: 'localhost'})
+        sql = "SELECT * FROM property_trackers
+        WHERE adress = $1
+        "
+        values = [adress]
+        db.prepare("find_adress", sql)
+        properties = db.exec_prepared("find_adress", values)
+        db.close()
+        return properties.map {|property| PropertyTrack.new(property)}
 
     end
 
