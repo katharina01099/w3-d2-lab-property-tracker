@@ -33,12 +33,41 @@ class PropertyTrack
       "
       values = [@adress, @value, @no_bedrooms, @year, @square_footage, @build]
       db.prepare("save", sql)
-      @id =db.exec_prepared("save", values)[0]['id'].to_i
+      @id = db.exec_prepared("save", values)[0]['id'].to_i
       db.close()
     end
 
+    def update()
+      db = PG. connect({dbname: 'property_tracker', host: 'localhost'})
+      sql = "UPDATE property_trackers
+      SET
+      (
+        adress,
+        value,
+        no_bedrooms,
+        year,
+        square_footage,
+        build
+      ) =
+      ($1, $2, $3, $4, $5, $6)
+      WHERE id = $7
+      "
+      values = [@adress, @value, @no_bedrooms, @year, @square_footage, @build, @id]
+      db.prepare("update", sql)
+      db.exec_prepared("update", values)
+      db.close()
+    end
 
-
+    def delete()
+      db = PG. connect({dbname: 'property_tracker', host: 'localhost'})
+      sql = "DELETE FROM property_trackers
+      WHERE id = $1
+      "
+      values = [@id]
+      db.prepare("delete", sql)
+      db.exec_prepared("delete", values)
+      db.close()
+    end
 
 
 

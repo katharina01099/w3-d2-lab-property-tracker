@@ -13,3 +13,8 @@ property1 = PropertyTrack.new({
 )
 
 property1.save
+
+property1.adress = "Princess Street"
+property1.update
+
+property1.delete 
